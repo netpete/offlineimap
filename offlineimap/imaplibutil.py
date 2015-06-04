@@ -15,7 +15,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import fcntl
+#import fcntl
 import time
 import subprocess
 from sys import exc_info
@@ -130,6 +130,7 @@ class IMAP4_Tunnel(UsefulIMAPMixIn, IMAP4):
     def set_nonblocking(self, fd):
         """Mark fd as nonblocking"""
 
+        import fcntl
         # get the file's current flag settings
         fl = fcntl.fcntl(fd, fcntl.F_GETFL)
         # clear non-blocking mode from flags

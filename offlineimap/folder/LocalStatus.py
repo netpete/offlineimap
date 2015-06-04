@@ -174,6 +174,8 @@ class LocalStatusFolder(BaseFolder):
             if self.doautosave:
                 os.fsync(cachefd.fileno())
             cachefd.close()
+            if os.name == 'nt':
+                os.remove(self.filename)
             os.rename(self.filename + ".tmp", self.filename)
 
             if self.doautosave:

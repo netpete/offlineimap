@@ -313,12 +313,13 @@ class OfflineImap:
                     stacktrace.dump(sys.stderr)
                     os.abort()
 
-            signal.signal(signal.SIGHUP, sig_handler)
-            signal.signal(signal.SIGUSR1, sig_handler)
-            signal.signal(signal.SIGUSR2, sig_handler)
             signal.signal(signal.SIGTERM, sig_handler)
             signal.signal(signal.SIGINT, sig_handler)
-            signal.signal(signal.SIGQUIT, sig_handler)
+            if os.name != "nt":
+                signal.signal(signal.SIGQUIT, sig_handler)
+                signal.signal(signal.SIGHUP, sig_handler)
+                signal.signal(signal.SIGUSR1, sig_handler)
+                signal.signal(signal.SIGUSR2, sig_handler)
 
             #various initializations that need to be performed:
             offlineimap.mbnames.init(self.config, syncaccounts)
